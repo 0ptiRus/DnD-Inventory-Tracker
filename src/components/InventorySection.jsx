@@ -1,36 +1,38 @@
 import React from "react";
-import { useDrop } from "react-dnd";
 import Item from "./Item";
 
-const ItemTypes = {
-  ITEM: "item",
-};
+const InventorySection = ({ title, items, onDropItem, onDragOver, draggedItem, invalidDrop, isInvalid, isHovered, onDragEnter, onDragLeave }) => {
+  const handleDrop = (e) => {
+    e.preventDefault();
+    onDropItem();
+  };
 
-const InventorySection = ({ title, items, onDropItem }) => {
-  const [{ isOver }, dropRef] = useDrop({
-    accept: ItemTypes.ITEM,
-    drop: (draggedItem) => {
-      onDropItem(draggedItem);
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
-  });
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div
-      ref={dropRef}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragEnter={onDragEnter}
+      onDragLeave={onDragLeave}
       style={{
-        backgroundColor: isOver ? "#e0e0e0" : "#f0f0f0",
-        padding: "16px",
-        minHeight: "200px",
-        margin: "8px",
-        border: "1px solid black",
+        width: "200px",
+        padding: "10px",
+        border: isInvalid ? "2px solid red" : "2px solid black",
+        backgroundColor: isHovered ? (isInvalid ? "#f8d7da" : "#d4edda") : "white",
       }}
     >
-      <h4>{title}</h4>
+      <h3>{title}</h3>
       {items.map((item) => (
-        <Item key={item.id} item={item} />
+        <Item
+          key={item.id}
+          item={item}
+          onDragStart={onDragOver}
+          isDragged={draggedItem && draggedItem.id === item.id}
+          invalidDrop={invalidDrop && draggedItem && draggedItem.id === item.id}
+        />
       ))}
     </div>
   );

@@ -1,31 +1,19 @@
 import React from "react";
-import { useDrag } from "react-dnd";
 
-const ItemTypes = {
-  ITEM: "item",
-};
-
-const Item = ({ item }) => {
-  const [{ isDragging }, dragRef] = useDrag({
-    type: ItemTypes.ITEM,
-    item: { id: item.id, name: item.name, category: item.category },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
+const Item = ({ item, onDragStart, invalidDrop }) => {
   return (
     <div
-      ref={dragRef}
+      draggable
+      onDragStart={() => onDragStart(item)}
       style={{
-        opacity: isDragging ? 0.5 : 1,
         padding: "8px",
         margin: "4px",
         backgroundColor: "lightgray",
         cursor: "move",
+        border: invalidDrop ? "2px solid red" : "1px solid black", 
       }}
     >
-      {item.name}
+      <strong>{item.name}</strong> - <em>{item.itemType}</em>
     </div>
   );
 };
