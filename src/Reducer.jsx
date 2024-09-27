@@ -15,15 +15,18 @@ export const initialState = {
           ...state,
           draggedItem: action.payload,
         };
-      case "MOVE_TO_BACKPACK":
-        return {
-          ...state,
-          weaponItems: state.weaponItems.filter(
-            (item) => item.id !== state.draggedItem.id
-          ),
-          backpackItems: [...state.backpackItems, state.draggedItem],
-          draggedItem: null, // Clear the dragged item after dropping
-        };
+        case "MOVE_TO_BACKPACK":
+          return {
+            ...state,
+            weaponItems: state.weaponItems.filter(
+              (item) => item.id !== state.draggedItem.id
+            ),
+            potionItems: state.potionItems.filter(
+              (item) => item.id !== state.draggedItem.id
+            ),
+            backpackItems: [...state.backpackItems, state.draggedItem],
+            draggedItem: null, // Clear the dragged item after dropping
+          };
       case "MOVE_TO_WEAPONS":
         return {
           ...state,

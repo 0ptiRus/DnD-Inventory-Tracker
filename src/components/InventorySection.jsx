@@ -11,29 +11,31 @@ const InventorySection = ({ title, items, onDropItem, onDragOver, draggedItem, i
     e.preventDefault();
   };
 
+  const sectionClass = isHovered ? isInvalid
+  ? "inventory-section inventory-section-invalid"
+  : "inventory-section inventory-section-valid"
+: "inventory-section";
+
   return (
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
-      style={{
-        width: "200px",
-        padding: "10px",
-        border: isInvalid ? "2px solid red" : "2px solid black",
-        backgroundColor: isHovered ? (isInvalid ? "#f8d7da" : "#d4edda") : "white",
-      }}
+      className={sectionClass}
     >
       <h3>{title}</h3>
-      {items.map((item) => (
-        <Item
-          key={item.id}
-          item={item}
-          onDragStart={onDragOver}
-          isDragged={draggedItem && draggedItem.id === item.id}
-          invalidDrop={invalidDrop && draggedItem && draggedItem.id === item.id}
-        />
-      ))}
+      <ul className="item-list">
+        {items.map((item) => (
+          <Item
+            key={item.id}
+            item={item}
+            onDragStart={onDragOver}
+            isDragged={draggedItem && draggedItem.id === item.id}
+            invalidDrop={invalidDrop && draggedItem && draggedItem.id === item.id}
+          />
+        ))}
+      </ul>
     </div>
   );
 };

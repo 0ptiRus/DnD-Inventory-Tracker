@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from "react";
 import InventorySection from "/src/components/InventorySection";
 import { Reducer, initialState } from "./Reducer"; 
+import "./Inventory.css";
 
 const Inventory = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -61,11 +62,12 @@ const Inventory = () => {
 
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
+    <div className="container">
       {/* Backpack Section */}
       <InventorySection
         title="Backpack"
         items={state.backpackItems}
+        onDragStart={handleDragStart}
         onDropItem={handleDropToBackpack}
         onDragOver={handleDragStart}
         onDragEnter={() => { setHoveredSection("backpack"); setIsValidHover(true); }} 
@@ -80,6 +82,7 @@ const Inventory = () => {
       <InventorySection
         title="Weapons"
         items={state.weaponItems}
+        onDragStart={handleDragStart}
         onDropItem={handleDropToWeapons}
         onDragOver={handleDragStart}
         onDragEnter={() => { setHoveredSection("weapons"); setIsValidHover(state.draggedItem && state.draggedItem.itemType === "Weapon"); }}
@@ -94,6 +97,7 @@ const Inventory = () => {
        <InventorySection
         title="Potions"
         items={state.potionItems}
+        onDragStart={handleDragStart}
         onDropItem={handleDropToPotions}
         onDragOver={handleDragStart}
         onDragEnter={() => { setHoveredSection("potions"); setIsValidHover(state.draggedItem && state.draggedItem.itemType === "Potion"); }}
