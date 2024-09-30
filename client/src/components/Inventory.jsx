@@ -44,6 +44,13 @@ const Inventory = () => {
   const handleDropToSection = async (section) => {
     if (!selectedItem) return;
 
+    if(section !== "backpack" && selectedItem.section != section)
+    {
+        console.log(selectedItem.section);
+        alert("You can drag items only to their section and the backpack.");
+        return;
+    }
+
     if (selectedItem.section === section) {
       alert(`Item is already in the ${section} section.`);
       return; 

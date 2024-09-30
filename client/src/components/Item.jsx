@@ -6,7 +6,7 @@ const Item = ({ item, onDragStart }) => {
       draggable
       onDragStart={() => onDragStart(item)}
     >
-      <strong>{item.name}</strong> - <em>{item.itemType}</em>
+      <strong>{item.name}</strong> - <em>{item.item_type}</em>
     </li>
   );
 };

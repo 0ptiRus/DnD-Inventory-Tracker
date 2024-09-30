@@ -13,7 +13,7 @@ const InventorySection = ({ title, items, onDropItem, onDragStart, onAddClick, o
 
   return (
     <div
-      className={`inventory-section ${isHovered ? "hovered" : ""} ${isHovered && items.length === 0 ? "inventory-section-invalid" : ""}`}
+      className={`inventory-section ${isHovered ? "hovered" : ""} ${isHovered && items.length === 0 ? "inventory-section-valid" : ""}`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragEnter={onDragEnter} 

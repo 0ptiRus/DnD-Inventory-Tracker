@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../api';
 //import './LoginPage.css';
@@ -8,6 +8,14 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => 
+  {
+      if(localStorage.getItem("token") !== null)
+        {
+          navigate('/characters');
+        };
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
